@@ -1,53 +1,25 @@
-import { useEffect } from 'react';
-import { useReducer } from 'react';
-import { TodoAdd } from './TodoAdd';
-import { TodoList } from './TodoList';
-import { todoReducer } from './TodoReducer';
-
-const initialState = [
-    // {
-    //     id: new Date().getTime(),
-    //     description: 'TArea A',
-    //     done: false
-    // },
-    // {
-    //     id: new Date().getTime() * 3,
-    //     description: 'tareaa B',
-    //     done: false
-    // },
-]
-
-const initX = () => {
-    return JSON.parse( localStorage.getItem('todos')) || [];
-}
+import { TodoAdd } from '../08-useReducer/TodoAdd';
+import { TodoList } from '../08-useReducer/TodoList';
+import { UseTodos } from '../hooks';
 
 export const TodoApp = () => {
 
     // el reducer no lo ejecutamos mas bien pasamos la refernecia a la funcjon 
-
-    // Podemos tener un array  de reducers
-    const [todos, dispatch] = useReducer(todoReducer, initialState, initX);
-
-    useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify( todos ));
-    },[todos]);
-
-    const handleNewTodo = ( todo ) => {
-        const action = {
-            type: '[TODO] Add Todo',
-            payload: todo
-        }
-        dispatch( action );
-   }
+    const { todos, todosCount, pendingCount,  handleDeleteTodo, handleNewTodo, handleToggleTodo } = UseTodos();
 
     return (
         <>
-            <h1>Todo APP(10) <small>pendientes 2</small> </h1>
+            <h1>Todo APP({ todosCount}) <small>pendientes { pendingCount }</small></h1>
+            {/* <h1>Todo APP({ todos.length}) <small>pendientes { todos.filter(todo => !todo.done).length}</small> </h1> */}
             <hr />
 
             <div className="row">
                 <div className="col-7">
-                    <TodoList todos={ todos } />
+                    <TodoList 
+                        todos={ todos } 
+                        onDeleteTodo={ handleDeleteTodo } 
+                        onToggleTodo={ handleToggleTodo }
+                    />
                 </div>
                 <div className="col-5">
                     <h4>Agregar TODO</h4>
