@@ -6,10 +6,11 @@ import { HomePage } from './HomePage';
 import { AboutPage } from './AboutPage';
 import { LoginPage } from './LoginPage';
 import { Navbar } from './Navbar';
+import { UserProvider } from './context/UserProvider';
 
 export const MainApp = () => {
     return (
-        <>
+        <UserProvider>
             <Navbar />
             {/* quiero hacer que este MainApp se muestre en todas las páginas */}
             <Routes>
@@ -18,7 +19,7 @@ export const MainApp = () => {
                 <Route path="login"  element={< LoginPage />}/>
                 <Route path="/*"  element={ <Navigate to="/about" />}/>
             </Routes>
-        </>
+        </UserProvider>
     )
 
 }
