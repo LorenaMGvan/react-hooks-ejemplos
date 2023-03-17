@@ -10,13 +10,14 @@ export const LoginPage = () => {
     return (
         <>
             <div>Logi </div>
-            <pre> 
+            <pre aria-label='pre'> 
                 { JSON.stringify(user, null, 3) }
             </pre>
 
             <button
+                aria-label='button'
                 onClick={ () => { setUser({ id: 123, name: 'Fulanita', email: 'micorreo@test.com'})  } }
-                className='btn btn-primary'>
+                className='btn btn-primary '>
                 Establecer usuario
             </button>
         </>
